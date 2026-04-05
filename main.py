@@ -145,6 +145,7 @@ class NpuSimulator:
 		jud_result = self.judge(r1, r2)
 		#시간 체크
 		avg_result = self.profile_performance(pattern, filter_a)
+		#결과 판정
 		print('--------------------')
 		print('[3] MAC 결과')
 		print('--------------------')
