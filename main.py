@@ -41,7 +41,7 @@ class NpuSimulator:
 
 	#===========================================
 	#	NpuSimulator 메트릭스 입력 처리 메서드
-	#===========================================		
+	#===========================================
 	def input_matrix(self):
 		matrix = []
 		while len(matrix) < 3:
@@ -83,6 +83,21 @@ class NpuSimulator:
 			return 'B'
 
 	#===========================================
+	#	NpuSimulator 실행 프로파일링 처리 메서드
+	#===========================================
+	def	profile_performance(self, pattern, filter_matrix, repeat = 10):
+		times = []
+		for _ in range(repeat):
+			start = time.perf_counter()
+			self.cal_mac(pattern, filter_matrix)
+			end = time.perf_counter()
+			times.append((end - start) * 1000)
+		avg_ms = sum(times) / len(times)
+		return avg_ms
+
+
+
+	#===========================================
 	#	NpuSimulator 실행 메서드
 	#===========================================
 	def	run(self):
@@ -115,7 +130,6 @@ class NpuSimulator:
 		print('--------------------')
 		print('필터 A (3줄 입력, 공백 구분)')
 		filter_a = self.input_matrix()
-		print(filter_a)
 		print('필터 B (3줄 입력, 공백 구분)')
 		filter_b = self.input_matrix()
 		#패턴 입력
@@ -127,12 +141,25 @@ class NpuSimulator:
 		#MAC 연산 (Multiply Accumulate)
 		r1 = self.cal_mac(pattern, filter_a)
 		r2 = self.cal_mac(pattern, filter_b)
-		print('r1 : ', r1)
-		print('r2 : ', r2)
-		#TODO : 판정 처리
-
-		#TODO : 시간 체크
-
+		#판정 처리
+		jud_result = self.judge(r1, r2)
+		#시간 체크
+		avg_result = self.profile_performance(pattern, filter_a)
+		print('--------------------')
+		print('[3] MAC 결과')
+		print('--------------------')
+		print('A 점수 : ', r1)
+		print('B 점수 : ', r2)
+		print(f'연산 시간(평균/10회) : {avg_result}ms')
+		print('판정 : ',jud_result)
+		# 성능 분석 표
+		print('--------------------')
+		print('[4] 성능 분석 (평균/10회)')
+		print('--------------------')
+		print(f'{"크기":<10} {"평균 시간(ms)":<15} {"연산 횟수"}')
+		print('-' * 40)
+		n = 3
+		print(f'{n}×{n:<10} {avg_result:<20.7f} {n * n}')
 	#===========================================
 	#	NpuSimulator json 모드 메서드
 	#===========================================
