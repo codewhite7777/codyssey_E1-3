@@ -21,6 +21,7 @@ class NpuSimulator:
 		print('[모드 선택]\n')
 		print('1. 사용자 입력 (3x3)')
 		print('2. data.json 분석')
+		print('3. 종료')
 
 	#===========================================
 	#	NpuSimulator 입력 값 검증 메서드 - 공백
@@ -120,8 +121,8 @@ class NpuSimulator:
 			if self.is_empty_space(raw_input) == True or self.is_str(raw_input) == True:
 				print('공백 또는 숫자가 아닌 값이 입력되었습니다.')
 				continue
-			if raw_input not in ('1', '2'):
-				print('1 또는 2를 입력하세요.')
+			if raw_input not in ('1', '2', '3'):
+				print('1 또는 2를 입력하세요. (종료 : 3)')
 				continue
 			user_input = int(raw_input)
 			# 메뉴얼 모드
@@ -130,6 +131,9 @@ class NpuSimulator:
 			# json 모드
 			elif user_input == 2:
 				self.json_mode()
+			# 종료
+			elif user_input == 3:
+				break
 
 	#===========================================
 	#	NpuSimulator 메뉴얼 모드 메서드
