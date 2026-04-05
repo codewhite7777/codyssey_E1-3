@@ -1,4 +1,11 @@
+import	time
+
 class NpuSimulator:
+	#===========================================
+	#	NpuSimulator 상수
+	#===========================================
+	EPSILON = 1e-9    # 0.000000001
+
 	#===========================================
 	#	NpuSimulator 이니셜라이저
 	#===========================================
@@ -65,6 +72,17 @@ class NpuSimulator:
 		return score
 
 	#===========================================
+	#	NpuSimulator 결과 값 판정 처리 메서드
+	#===========================================
+	def	judge(self, score_a, score_b):
+		if abs(score_a - score_b) < self.EPSILON:
+			return '판정 불가'
+		elif score_a > score_b:
+			return 'A'
+		else:
+			return 'B'
+
+	#===========================================
 	#	NpuSimulator 실행 메서드
 	#===========================================
 	def	run(self):
@@ -112,6 +130,8 @@ class NpuSimulator:
 		print('r1 : ', r1)
 		print('r2 : ', r2)
 		#TODO : 판정 처리
+
+		#TODO : 시간 체크
 
 	#===========================================
 	#	NpuSimulator json 모드 메서드
