@@ -108,6 +108,9 @@ class NpuSimulator:
 		except	FileNotFoundError:
 			print('data.json 파일을 찾을 수 없습니다.')
 			return None
+		except json.JSONDecodeError:
+			print('data.json 파일 형식이 올바르지 않습니다.')
+			return None
 
 	#===========================================
 	#	NpuSimulator 실행 메서드
